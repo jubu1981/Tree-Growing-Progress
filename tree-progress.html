@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tool Adoption Tree</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .container { display: flex; gap: 40px; max-width: 1200px; margin: 0 auto; }
+    .left-column { flex: 2; text-align: center; }
+    .right-column { flex: 1; }
+    #tree { width: 300px; transition: all 0.5s ease; }
+    .progress { font-size: 20px; margin-top: 20px; }
+    h1 { text-align: center; margin-bottom: 30px; }
+    h3 { text-align: center; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🤖 MSD GHC Adoption Progress</h1>
+  
+  <div class="container">
+    <div class="left-column">
+      <h3>Current Dedicated Usage</h3>
+      <div style="margin-bottom: 20px;">
+        <input type="date" id="datePicker" style="padding: 8px; font-size: 16px;">
+      </div>
+      <img id="tree" src="tree-small.png" alt="Tree">
+      <div class="progress"><span id="usage">0%</span></div>
+      <div style="margin-top: 20px;">
+        <input type="range" id="usageSlider" min="0" max="100" value="66" style="width: 300px;">
+      </div>
+    </div>
+
+    <div class="right-column">
+      <h3>Tree Growth Stages</h3>
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+        <thead>
+          <tr style="background-color: #f5f5f5;">
+            <th style="border: 1px solid #ddd; padding: 10px;">Image</th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Usage Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Tree-Fullsize.png" alt="Tree Fullsize" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">≥ 75%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Tree-Big.png" alt="Tree Big" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">70% - 74%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Tree-Medium.png" alt="Tree Medium" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">60% - 69%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Tree-Small.png" alt="Tree Small" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">50% - 59%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Pre-Tree.png" alt="Pre Tree" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">40% - 49%</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;"><img src="Seed.png" alt="Seed" style="width: 50px; height: auto;"></td>
+            <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">< 40%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Set usage percentage (update manually or dynamically later)
+    let usage = 66; // Example: 66%
+
+    function updateTree(usageValue) {
+      // Display usage
+      document.getElementById('usage').innerText = usageValue + '%';
+
+      // Swap tree image based on usage thresholds
+      let treeImg = 'Seed.png';
+      if (usageValue >= 75) treeImg = 'Tree-Fullsize.png';
+      else if (usageValue >= 70) treeImg = 'Tree-Big.png';
+      else if (usageValue >= 60) treeImg = 'Tree-Medium.png';
+      else if (usageValue >= 50) treeImg = 'Tree-Small.png';
+      else if (usageValue >= 40) treeImg = 'Pre-Tree.png';
+
+      document.getElementById('tree').src = treeImg;
+    }
+
+    // Set default date to today
+    const today = new Date();
+    const todayString = today.toISOString().split('T')[0];
+    document.getElementById('datePicker').value = todayString;
+
+    // Initialize the tree
+    updateTree(usage);
+
+    // Add event listener to slider
+    document.getElementById('usageSlider').addEventListener('input', function(e) {
+      usage = parseInt(e.target.value);
+      updateTree(usage);
+    });
+  </script>
+</body>
+</html>
