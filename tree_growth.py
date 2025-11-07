@@ -125,7 +125,7 @@ class TreeGrowth:
         print("=" * 40)
         
         for i, stage in enumerate(self.stages):
-            # Clear screen (works on Unix/Linux/Mac)
+            # Add spacing between stages
             if i > 0:
                 print("\n" * 2)
             
@@ -170,7 +170,7 @@ def main():
             try:
                 stage_num = int(sys.argv[2])
                 tree.display_stage(stage_num)
-            except (ValueError, IndexError):
+            except ValueError:
                 print("Usage: python tree_growth.py --stage <0-7>")
         elif arg == "--help" or arg == "-h":
             print("Tree Growing Progress Display")
