@@ -25,7 +25,7 @@
       <img id="tree" src="tree-small.png" alt="Tree">
       <div class="progress"><span id="usage">0%</span></div>
       <div style="margin-top: 20px;">
-        <input type="range" id="usageSlider" min="0" max="100" value="66" style="width: 300px;">
+        <input type="range" id="usageSlider" min="0" max="100" style="width: 300px;">
       </div>
     </div>
 
@@ -70,7 +70,7 @@
 
   <script>
     // Set usage percentage (update manually or dynamically later)
-  let usage = 12; // Example: 26%
+  let usage = 22; // Example: 21%
 
     function updateTree(usageValue) {
       // Display usage
@@ -92,7 +92,8 @@
     const todayString = today.toISOString().split('T')[0];
     document.getElementById('datePicker').value = todayString;
 
-    // Initialize the tree
+    // Set slider value to match usage and initialize the tree
+    document.getElementById('usageSlider').value = usage;
     updateTree(usage);
 
     // Add event listener to slider
